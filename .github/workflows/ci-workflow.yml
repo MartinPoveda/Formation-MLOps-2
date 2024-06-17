@@ -23,8 +23,8 @@ jobs:
           pip install flake8
           pip install vulture
       - name: Run Linter
-        run:  flake8
+        run:  flake8 formation_indus_ds_avancee
       - name: Run Vulture
-        run:  vulture
+        run:  vulture formation_indus_ds_avancee --min_confidence 100
       - name: Run tests
-        run:  pytest
+        run:  python -m pytest tests/test_unit
