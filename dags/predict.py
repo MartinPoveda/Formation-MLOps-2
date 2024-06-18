@@ -19,7 +19,7 @@ def predict():
     @task
     def prepare_features_with_io_task():
         features_path = os.path.join(DATA_FOLDER,
-        f'prepared_features_{datetime.now().strftime('%Y%m%d-%H%M%S')}.parquet')
+        f'prepared_features_{datetime.now()}.parquet')
         prepare_features_with_io(data_path=GENERATED_DATA_PATH,
                                  features_path=features_path,
                                  training_mode=False)

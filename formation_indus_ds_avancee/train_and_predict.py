@@ -1,6 +1,5 @@
 import os
 import time
-import datetime
 
 import joblib
 import pandas as pd
@@ -19,7 +18,7 @@ def train_model(features: pd.DataFrame, model_registry_folder: str) -> None:
     y = features[target]
     model = RandomForestRegressor(n_estimators=1, max_depth=10, n_jobs=1)
     model.fit(X, y)
-    current_time = datetime.datetime.now()
+    current_time = time.strftime("%Y-%m-%d %H:%M:%S")
     joblib.dump(model, os.path.join(model_registry_folder, f'{current_time}_model.joblib'))
     joblib.dump(model, os.path.join(model_registry_folder, 'latest.joblib'))
 
