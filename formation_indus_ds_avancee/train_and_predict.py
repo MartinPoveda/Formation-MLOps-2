@@ -6,7 +6,7 @@ import mlflow
 import pandas as pd
 from sklearn.metrics import mean_absolute_error
 import xgboost as xgb
-from sklearn.ensemble import RandomForestRegressor
+# from sklearn.ensemble import RandomForestRegressor
 
 
 def train_model_with_io(features_path: str, model_registry_folder: str) -> None:
@@ -19,16 +19,12 @@ def train_model(features: pd.DataFrame, model_registry_folder: str) -> None:
     target = 'Ba_avg'
     X = features.drop(columns=[target])
     y = features[target]
-    mflow.set_tracking.uri('http://0.0.0.0.33045')
+    mlflow.set_tracking.uri('http://0.0.0.0.33045')
     with mlflow.start_run():
         mlflow.sklearn.autolog(log_models=True)
         model = xgb.XGBRegressor(tree_method="hist", eval_metric=mean_absolute_error)
         model.fit(X, y)
-        mlflow.sklearn.log_model(
-        sk_model=model,
-        artifact_path="sklearn_model",
-        registered_model_name="sklearn_model"
-        )
+        mlflow.sklearn.log_model(sk_model=model, artifact_path="sklearn_model", registered_model_name="sklearn_model")
     time_str = time.strftime('%Y%m%d-%H%M%S')
     joblib.dump(model, os.path.join(model_registry_folder, time_str + '.joblib'))
 
